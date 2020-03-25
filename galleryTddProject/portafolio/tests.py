@@ -7,11 +7,11 @@ from .models import Portafolio
 import json
 
 # Create your tests here.
+
+
 class PortafolioTestCase(TestCase):
 
     def test_list_portafolios_status(self):
-        url = 'portafolio'
-        response = self.client.get(url, Format = 'json')
+        url = '/portafolios/'
+        response = self.client.get(url, Format='json')
         self.assertEqual(response.status_code, 200)
-
-
