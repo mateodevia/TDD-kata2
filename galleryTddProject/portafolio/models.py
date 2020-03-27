@@ -6,3 +6,5 @@ from django.contrib.auth.models import User
 class Portafolio(models.Model):
     name = models.CharField(max_length=200)
     user = models.ForeignKey(User, null=True, on_delete=models.PROTECT)
+    public = models.BooleanField(default=False)
+

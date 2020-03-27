@@ -32,3 +32,11 @@ class PortafolioTestCase(TestCase):
                                                                          "last_name": "User", "password": "AnyPas#5", "email": "test@test.com"}), content_type='application/json')
         current_data = json.loads(response.content)
         self.assertEqual(current_data[0]['fields']['username'], 'testUser')
+
+    def test_get_portafolios_publicos(self):
+        user_model = User.objects.create_user(username='testUser', password='kd8wke-DE34', first_name='test', last_name='test', email='test@test.com')
+        Portafolio.objects.create(user=user_model, public= True)
+        Portafolio.objects.create(user=user_model, public= False)
+        response = self.client.get('/portafolios/publicos/testUser')
+        current_data = json.loads(response.content)
+        self.assertEqual(len(current_data),1)
