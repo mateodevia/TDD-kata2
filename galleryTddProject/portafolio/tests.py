@@ -24,7 +24,6 @@ class PortafolioTestCase(TestCase):
 
         response = self.client.get('/portafolios/')
         current_data = json.loads(response.content)
-        print(current_data)
         self.assertEqual(len(current_data), 2)
 
     def test_add_user(self):
@@ -34,9 +33,11 @@ class PortafolioTestCase(TestCase):
         self.assertEqual(current_data[0]['fields']['username'], 'testUser')
 
     def test_get_portafolios_publicos(self):
-        user_model = User.objects.create_user(username='testUser', password='kd8wke-DE34', first_name='test', last_name='test', email='test@test.com')
-        Portafolio.objects.create(user=user_model, public= True)
-        Portafolio.objects.create(user=user_model, public= False)
+        user_model = User.objects.create_user(
+            username='testUser', password='kd8wke-DE34', first_name='test', last_name='test', email='test@test.com')
+        Portafolio.objects.create(user=user_model, public=True)
+        Portafolio.objects.create(user=user_model, public=False)
         response = self.client.get('/portafolios/publicos/testUser')
+        print(response)
         current_data = json.loads(response.content)
-        self.assertEqual(len(current_data),1)
+        self.assertEqual(len(current_data), 1)

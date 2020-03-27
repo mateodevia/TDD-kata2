@@ -5,4 +5,6 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('addUser/', views.add_user_view, name='addUser'),
+    path('publicos/<slug:username>',
+         views.get_portafolios_publicos, name='addUser'),
 ]

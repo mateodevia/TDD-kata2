@@ -30,3 +30,10 @@ def add_user_view(request):
         user_model.email = email
         user_model.save()
     return HttpResponse(serializers.serialize("json", [user_model]))
+
+
+def get_portafolios_publicos(request, username):
+    usuario = User.objects.get(username=username)
+    print(usuario)
+    portafolios_list = Portafolio.objects.filter(user=usuario, public=True)
+    return HttpResponse(serializers.serialize("json", portafolios_list))
