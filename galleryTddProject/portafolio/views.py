@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 from .models import Portafolio
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 import json
 
 # Create your views here.
@@ -37,3 +38,17 @@ def get_portafolios_publicos(request, username):
     print(usuario)
     portafolios_list = Portafolio.objects.filter(user=usuario, public=True)
     return HttpResponse(serializers.serialize("json", portafolios_list))
+
+
+@csrf_exempt
+def iniciar_sesion(request):
+    json_user = json.loads(request.body)
+    username = json_user['username']
+    password = json_user['password']
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        # Redirect to a success page.
+        return HttpResponse(status=200)
+    else:
+        # Return an 'invalid login' error message.
+        return HttpResponse(status=400)

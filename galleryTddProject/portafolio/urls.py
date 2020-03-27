@@ -6,5 +6,6 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('addUser/', views.add_user_view, name='addUser'),
     path('publicos/<slug:username>',
-         views.get_portafolios_publicos, name='addUser'),
+         views.get_portafolios_publicos, name='publicos'),
+    path('login/', views.iniciar_sesion, name='login')
 ]

@@ -42,10 +42,14 @@ class PortafolioTestCase(TestCase):
         current_data = json.loads(response.content)
         self.assertEqual(len(current_data), 1)
 
-
     def test_login(self):
         user_model = User.objects.create_user(
-        username='testUser', password='kd8wke-DE34', first_name='test', last_name='test', email='test@test.com')
-        response = self.client.post('/portafolios/addUser/', json.dumps({"username": "testUser","password": "AnyPas#5",}),content_type='application/json')
-        current_data = json.loads(response.content)
+            username='testUser', password='kd8wke-DE34', first_name='test', last_name='test', email='test@test.com')
+        response = self.client.post('/portafolios/login/', json.dumps(
+            {"username": "testUser", "password": "kd8wke-DE34", }), content_type='application/json')
         self.assertEqual(response.status_code, 200)
+        user_model2 = User.objects.create_user(
+            username='testUser2', password='kd8wXASFDke-DE34', first_name='test', last_name='test', email='test@test.com')
+        response2 = self.client.post('/portafolios/login/', json.dumps(
+            {"username": "testUser2", "password": "kd8wke-DE34", }), content_type='application/json')
+        self.assertEqual(response2.status_code, 400)
