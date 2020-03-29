@@ -1,7 +1,10 @@
+from django.contrib.auth.management import get_default_username
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
+from rest_framework.decorators import api_view
+
 from .models import Portafolio
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
@@ -52,3 +55,7 @@ def iniciar_sesion(request):
     else:
         # Return an 'invalid login' error message.
         return HttpResponse(status=400)
+
+
+
+

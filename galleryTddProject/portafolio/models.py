@@ -8,3 +8,5 @@ class Portafolio(models.Model):
     user = models.ForeignKey(User, null=True, on_delete=models.PROTECT)
     public = models.BooleanField(default=False)
 
+
+

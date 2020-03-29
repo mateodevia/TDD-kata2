@@ -53,3 +53,11 @@ class PortafolioTestCase(TestCase):
         response2 = self.client.post('/portafolios/login/', json.dumps(
             {"username": "testUser2", "password": "kd8wke-DE34", }), content_type='application/json')
         self.assertEqual(response2.status_code, 400)
+
+    def test_editar_datos(self):
+        user_model = User.objects.create_user(
+            username='testUser', password='kd8wke-DE34', first_name='Sebastian', last_name='Mujica', email='test@test.com')
+        response = self.client.put('/portafolios/actualizarUsuario/', json.dumps({"username": "testUser", "password": "kd8wke-DE34", "last_name":"Diaz"}), content_type='application/json')
+        current_data = json.loads(response.content)
+        self.assertEqual(current_data[0]['fields']['last_name'],"Diaz")
+
