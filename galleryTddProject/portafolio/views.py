@@ -56,6 +56,13 @@ def iniciar_sesion(request):
         # Return an 'invalid login' error message.
         return HttpResponse(status=400)
 
-
+@api_view(['PUT'])
+@csrf_exempt
+def actualizar_usuario(request):
+    if request.method == 'PUT':
+        datos_usuario= json.loads(request.body)
+        user = User.objects.filter(username= datos_usuario['username']).update(last_name=datos_usuario['last_name'])
+        obj = User.objects.filter(username=datos_usuario['username']).first()
+        return HttpResponse(serializers.serialize("json", [obj]), content_type='application/json')
 
 
